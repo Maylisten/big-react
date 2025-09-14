@@ -11,12 +11,17 @@ import {
 export class ReactElement implements IReactElement {
 	$$typeof = REACT_ELEMENT_TYPE;
 	__mark = 'xuhan';
-	constructor(
-		public type: ElementType,
-		public key: Key,
-		public ref: Ref,
-		public props: Props
-	) {}
+	type: ElementType;
+	key: Key;
+	ref: Ref;
+	props: Props;
+
+	constructor(type: ElementType, key: Key, ref: Ref, props: Props) {
+		this.type = type;
+		this.key = key;
+		this.ref = ref;
+		this.props = props;
+	}
 }
 
 export const jsx = (
