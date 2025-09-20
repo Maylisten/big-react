@@ -40,7 +40,6 @@ function workLoop() {
 
 export function renderRoot(root: FiberNode) {
 	prepareRefreshStack(root);
-
 	do {
 		try {
 			workLoop();
