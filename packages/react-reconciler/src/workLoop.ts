@@ -1,11 +1,12 @@
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode } from './fiber';
+import { createWorkInProgress, FiberNode, FiberRootNode } from './fiber';
+import { HostRoot } from './workTags';
 
-let workProgress: FiberNode | null = null;
+let workInProgress: FiberNode | null = null;
 
-function prepareRefreshStack(fiber: FiberNode) {
-	workProgress = fiber;
+function prepareRefreshStack(root: FiberRootNode) {
+	workInProgress = createWorkInProgress(root.current, {});
 }
 
 function performUnitOfWork(fiber: FiberNode) {
@@ -14,7 +15,7 @@ function performUnitOfWork(fiber: FiberNode) {
 	if (next === null) {
 		completeUnitOfWork(fiber);
 	} else {
-		workProgress = next;
+		workInProgress = next;
 	}
 }
 
@@ -24,28 +25,51 @@ function completeUnitOfWork(fiber: FiberNode) {
 		completeWork(node);
 		const sibling = node.sibling;
 		if (sibling !== null) {
-			workProgress = sibling;
+			workInProgress = sibling;
 			return;
 		}
 		node = node.return;
-		workProgress = node;
+		workInProgress = node;
 	} while (node !== null);
 }
 
 function workLoop() {
-	while (workProgress) {
-		performUnitOfWork(workProgress);
+	while (workInProgress) {
+		performUnitOfWork(workInProgress);
 	}
 }
 
-export function renderRoot(root: FiberNode) {
+export function scheduleUpdateOnFiber(fiber: FiberNode) {
+	// TODO: 调度
+	const root = markUpdateFromFiberToRoot(fiber);
+	if (root) {
+		renderRoot(root);
+	}
+}
+
+export function markUpdateFromFiberToRoot(fiber: FiberNode) {
+	let node = fiber;
+	let parent = node.return;
+	while (parent) {
+		node = parent;
+		parent = node.return;
+	}
+	if (node.tag === HostRoot) {
+		return node.stateNode as FiberRootNode;
+	}
+	return null;
+}
+
+export function renderRoot(root: FiberRootNode) {
 	prepareRefreshStack(root);
 	do {
 		try {
 			workLoop();
 		} catch (error) {
-			console.error('workLoop 发生错误', error);
-			workProgress = null;
+			if (__DEV__) {
+				console.error('workLoop 发生错误', error);
+			}
+			workInProgress = null;
 		}
 	} while (true);
 }

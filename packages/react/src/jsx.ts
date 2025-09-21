@@ -5,7 +5,7 @@ import {
 	Key,
 	Ref,
 	Props,
-	ReactElement as IReactElement
+	ReactElementType as IReactElement
 } from 'shared/ReactTypes';
 
 export class ReactElement implements IReactElement {

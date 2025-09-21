@@ -4,7 +4,7 @@ export type Ref = unknown;
 export type Props = Record<string, unknown>;
 export type ElementType = unknown;
 
-export interface ReactElement {
+export interface ReactElementType {
 	$$typeof: symbol | number;
 	type: ElementType;
 	key: Key;

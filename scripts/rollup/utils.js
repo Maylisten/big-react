@@ -4,6 +4,7 @@ import ts from 'rollup-plugin-typescript2';
 import cjs from '@rollup/plugin-commonjs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import replace from '@rollup/plugin-replace';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,6 +27,9 @@ export function getPackageJson(pkgName) {
 	return json;
 }
 
-export function getBaseRollupPlugins({ typescriptOptions = {} } = {}) {
-	return [cjs(), ts(typescriptOptions)];
+export function getBaseRollupPlugins({
+	alias = { __DEV__: true },
+	typescriptOptions = {}
+} = {}) {
+	return [replace(alias), cjs(), ts(typescriptOptions)];
 }
