@@ -18,7 +18,7 @@ export default [
 		input: path.resolve(pkgPath, module),
 		output: {
 			file: path.resolve(pkgDistPath, 'index.js'),
-			name: 'index.js',
+			name: 'react',
 			format: 'umd'
 		},
 		plugins: [
@@ -29,7 +29,8 @@ export default [
 				baseContents: ({ name, description, version }) => ({
 					name,
 					description,
-					version
+					version,
+					main: 'index.js'
 				})
 			})
 		]
@@ -40,13 +41,13 @@ export default [
 			// jsx-runtime
 			{
 				file: path.resolve(pkgDistPath, 'jsx-runtime.js'),
-				name: 'jsx-runtime.js',
+				name: 'jsx',
 				format: 'umd'
 			},
 			// jsx-dev-runtime
 			{
 				file: path.resolve(pkgDistPath, 'jsx-dev-runtime.js'),
-				name: 'jsx-dev-runtime.js',
+				name: 'jsx',
 				format: 'umd'
 			}
 		],

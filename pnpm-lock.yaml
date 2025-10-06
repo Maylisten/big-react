@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@commitlint/cli': ^19.8.1
       '@commitlint/config-conventional': ^19.8.1
+      '@rollup/plugin-alias': ^5.1.1
       '@rollup/plugin-commonjs': ^28.0.6
       '@rollup/plugin-replace': ^6.0.2
       '@types/node': '*'
@@ -28,6 +29,7 @@ importers:
     devDependencies:
       '@commitlint/cli': 19.8.1_lzlv3y6jgu7ijvc7ussn7iorka
       '@commitlint/config-conventional': 19.8.1
+      '@rollup/plugin-alias': 5.1.1_rollup@4.50.1
       '@rollup/plugin-commonjs': 28.0.6_rollup@4.50.1
       '@types/node': 24.3.3
       '@typescript-eslint/eslint-plugin': 8.43.0_mcgze5veyrxxzgp7fy7ihdqn24
@@ -348,6 +350,18 @@ packages:
   /@pkgr/core/0.2.9:
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+    dev: true
+
+  /@rollup/plugin-alias/5.1.1_rollup@4.50.1:
+    resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      rollup: 4.50.1
     dev: true
 
   /@rollup/plugin-commonjs/28.0.6_rollup@4.50.1:
